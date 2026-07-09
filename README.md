@@ -1,10 +1,10 @@
-# 🌱 Sistema de Riego Inteligente IoT **(MataPlantas4000)** 
+# 🌱 Sistema de Riego Inteligente IoT (MataPlantas4000)
 
 ## 📖 Descripción
 
-Proyecto desarrollado para la asignatura de Sistemas Operativos Embebidos utilizando comunicación **ESP-NOW**, una aplicación web en **Flask** y una base de datos **SQLite**.
+Proyecto desarrollado para la asignatura de **Sistemas Operativos Embebidos**, utilizando comunicación inalámbrica **ESP-NOW**, una aplicación web desarrollada con **Flask** y una base de datos **SQLite**.
 
-El sistema simula un sistema de riego inteligente utilizando tres microcontroladores.
+El objetivo del proyecto es simular un sistema de riego inteligente capaz de monitorear en tiempo real la temperatura, humedad y nivel del estanque, permitiendo además controlar una bomba de agua desde una interfaz web y registrar automáticamente todos los eventos importantes del sistema.
 
 ---
 
@@ -15,151 +15,220 @@ El sistema simula un sistema de riego inteligente utilizando tres microcontrolad
 - Hugo Cornejo
 
 ---
-# 👨‍🏫 Profesor 
 
-Profesor Don José Fernando Poblete Cabezas (El Unico Mas Fuerte que Batman 🦹🏻‍♂️)
+# 👨‍🏫 Profesor
+
+**José Fernando Poblete Cabezas**  
+*(El único más fuerte que Batman 🦹🏻‍♂️)*
 
 ---
 
+# ⚙ Tecnologías Utilizadas
 
-# ⚙ Tecnologías utilizadas
-
-- ESP8266
 - ESP32
+- ESP8266
 - ESP-NOW
 - Python
 - Flask
 - SQLite
-- HTML
-- CSS
+- HTML5
+- CSS3
 - JavaScript
+- Git
+- GitHub
 
 ---
 
-# 🛠 Arquitectura
+# 🛠 Arquitectura del Sistema
 
 ```
               ESP1
-        (Temperatura y Humedad)
+     (Temperatura y Humedad)
                │
                │ ESP-NOW
                ▼
           ESP3 CENTRAL
-        (Servidor Flask)
+      (Servidor Flask + SQLite)
                ▲
                │ ESP-NOW
                │
             ESP2
-       (Nivel del estanque)
+      (Nivel del Estanque)
+               │
+               ▼
+        Página Web en Tiempo Real
 ```
 
 ---
 
-# ESP1
+# 📷 Dashboard del Sistema
 
-Funciones
+## Estado Normal
+
+![Dashboard Normal](img/dashboard_normal.png)
+
+---
+
+## Bomba Encendida
+
+![Dashboard Bomba](img/dashboard_bomba.png)
+
+---
+
+## Alerta por Nivel Bajo
+
+![Dashboard Alerta](img/dashboard_alerta.png)
+
+---
+
+# 📸 Prototipo Físico
+
+## Vista General
+
+![Prototipo](img/prototipo1.jpg)
+
+---
+
+## Funcionamiento del Sistema
+
+![Funcionamiento](img/prototipo2.jpg)
+
+---
+
+## Activación de la Bomba
+
+![Bomba Encendida](img/prototipo3.jpg)
+
+---
+
+# ESP1 - Sensor Ambiental
+
+### Funciones
 
 - Lectura de temperatura.
 - Lectura de humedad.
-- LED Verde:
-  - Sistema normal.
-- LED Rojo:
-  - Temperatura alta.
-  - Humedad baja.
-  - Error del sensor.
+- Envío de datos mediante ESP-NOW.
+- Activación del LED rojo cuando existe una condición de alerta.
+- LED verde cuando el sistema funciona normalmente.
 
 ---
 
-# ESP2
+# ESP2 - Nivel del Estanque
 
-Funciones
+### Funciones
 
-- Simulación del nivel del estanque mediante potenciómetro.
-- LED Amarillo:
-  - Nivel bajo del estanque.
-
----
-
-# ESP3
-
-Funciones
-
-- Receptor ESP-NOW.
-- Comunicación con Flask.
-- Control de bomba mediante LED.
-- Envío de datos a la página web.
-- Registro de eventos.
+- Simulación del nivel de agua mediante un potenciómetro.
+- Envío del porcentaje del estanque al ESP3.
+- Activación de alerta cuando el nivel es bajo.
 
 ---
 
-# Página Web
+# ESP3 - Servidor Central
 
-La aplicación web permite visualizar:
+### Funciones
 
-- Temperatura
-- Humedad
-- Nivel del estanque
-- Estado del sistema
-- Alertas
-- Estado de la bomba
-- Encendido y apagado de la bomba
+- Recepción de información mediante ESP-NOW.
+- Comunicación con la aplicación Flask.
+- Control de la bomba desde la interfaz web.
+- Actualización automática de los datos.
+- Registro de eventos en SQLite.
 
 ---
 
-# Base de Datos
+# 🌐 Página Web
 
-Se utiliza SQLite.
+La aplicación web desarrollada permite visualizar en tiempo real:
 
-Archivo
+- 🌡 Temperatura.
+- 💧 Humedad.
+- 🌊 Nivel del estanque.
+- ⚠ Estado del sistema.
+- 🚨 Alertas.
+- 🔵 Estado de la bomba.
+- ▶ Encendido de la bomba.
+- ⏹ Apagado de la bomba.
 
+La página se actualiza automáticamente sin necesidad de recargar el navegador.
+
+---
+
+# 🗄 Base de Datos
+
+Se utiliza una base de datos **SQLite** para almacenar automáticamente los eventos del sistema.
+
+Archivo utilizado:
+
+```
 riego.db
+```
 
-La base de datos almacena:
+### Información registrada
 
-- Encendido de bomba.
-- Apagado de bomba.
+- Encendido de la bomba.
+- Apagado de la bomba.
+- Cambios del nivel del estanque.
+- Alertas de nivel bajo.
 - Cambios de estado.
-- Alertas del sistema.
+- Historial de funcionamiento del sistema.
 
 ---
 
-# Archivos del proyecto
+# 📂 Estructura del Proyecto
 
 ```
 actividad3eva/
 
-app.py
-
-requirements.txt
-
-README.md
-
-riego.db
-
-templates/
-    index.html
-
-static/
-    style.css
+│
+├── app.py
+├── README.md
+├── requirements.txt
+├── riego.db
+│
+├── esp1/
+│     └── esp1.ino
+│
+├── esp2/
+│     └── esp2.ino
+│
+├── esp3/
+│     └── esp3.ino
+│
+├── templates/
+│     └── index.html
+│
+├── static/
+│     └── style.css
+│
+└── img/
+      ├── dashboard_normal.png
+      ├── dashboard_bomba.png
+      ├── dashboard_alerta.png
+      ├── prototipo1.jpg
+      ├── prototipo2.jpg
+      └── prototipo3.jpg
 ```
 
 ---
 
-# Ejecutar
+# 🚀 Instalación
 
-Instalar dependencias
+## Instalar dependencias
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
-Ejecutar
+---
 
-```
+## Ejecutar el servidor
+
+```bash
 python3 app.py
 ```
 
-Abrir navegador
+---
+
+## Abrir la aplicación
 
 ```
 http://127.0.0.1:5000
@@ -167,10 +236,51 @@ http://127.0.0.1:5000
 
 ---
 
-# Autor
+# ✅ Resultado del Proyecto
 
-Nilson Ayala
-Melissa Rojas
-Hugo Cornejo
+El sistema desarrollado permite monitorear en tiempo real el estado de un sistema de riego inteligente utilizando tres microcontroladores comunicados mediante **ESP-NOW**.
+
+Las funciones implementadas fueron:
+
+- ✅ Monitoreo de temperatura.
+- ✅ Monitoreo de humedad.
+- ✅ Monitoreo del nivel del estanque.
+- ✅ Control remoto de la bomba.
+- ✅ Interfaz web en tiempo real.
+- ✅ Comunicación inalámbrica entre ESP.
+- ✅ Registro automático de eventos en SQLite.
+- ✅ Proyecto completamente funcional.
+
+---
+
+# 🎯 Objetivo Cumplido
+
+Se logró desarrollar un sistema IoT capaz de monitorear variables ambientales, controlar una bomba de agua desde una interfaz web y registrar automáticamente los eventos del sistema utilizando comunicación ESP-NOW y una base de datos SQLite.
+
+---
+
+# 👥 Autores
+
+- Nilson Ayala
+- Melissa Rojas
+- Hugo Cornejo
+
+---
+
+### 👨‍🏫 Profesor
+
+José Fernando Poblete Cabezas
+
+---
+
+### 🏫 Institución
+
 INACAP
+
+Ingeniería en Electrónica
+
+---
+
+### 📅 Año
+
 2026
