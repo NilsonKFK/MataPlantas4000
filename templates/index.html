@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<title>Sistema de Riego Inteligente</title>
+<link rel="stylesheet" href="/static/style.css">
+
+<script>
+async function actualizar(){
+
+    let r = await fetch("/datos");
+    let d = await r.json();
+
+    document.getElementById("temp").innerHTML = d.temp + " °C";
+    document.getElementById("hum").innerHTML = d.hum + " %";
+
+    document.getElementById("nivel").innerHTML = d.nivel;
+    document.getElementById("nivelGrande").innerHTML = d.nivel;
+
+    document.getElementById("estado").innerHTML = d.estado;
+    document.getElementById("alerta").innerHTML = d.alerta;
+
+    document.getElementById("motor").innerHTML = d.motor || "APAGADO";
+    document.getElementById("motor2").innerHTML = d.motor || "APAGADO";
+
+    document.getElementById("barraNivel").style.height = d.nivel + "%";
+}
+
+setInterval(actualizar, 1000);
+window.onload = actualizar;
+
+async function motorON(){
+    let r = await fetch("/motoron");
+    let d = await r.json();
+
+    document.getElementById("motor").innerHTML = d.motor;
+    document.getElementById("motor2").innerHTML = d.motor;
+}
+
+async function motorOFF(){
+    let r = await fetch("/motoroff");
+    let d = await r.json();
+
+    document.getElementById("motor").innerHTML = d.motor;
+    document.getElementById("motor2").innerHTML = d.motor;
+}
+</script>
+</head>
+
+<body>
+
+<h1>DASHBOARD PRINCIPAL</h1>
+
+<p class="subtitulo">
+Monitoreo en tiempo real del sistema de riego inteligente
+</p>
+
+<div class="grid-superior">
+
+    <div class="card azul">
+        <h3>🌡 TEMPERATURA</h3>
+        <p class="valor" id="temp">0 °C</p>
+        <span>ESP1 - DHT11</span>
+    </div>
+
+    <div class="card celeste">
+        <h3>💧 HUMEDAD</h3>
+        <p class="valor" id="hum">0 %</p>
+        <span>ESP1 - DHT11</span>
+    </div>
+
+    <div class="card morado">
+        <h3>🌊 NIVEL DE AGUA</h3>
+        <p class="valor">
+            <span id="nivel">0</span> %
+        </p>
+        <span>ESP2 - Estanque</span>
+    </div>
+
+    <div class="card amarillo">
+        <h3>⚠ ESTADO DEL SISTEMA</h3>
+        <p class="valor alerta" id="estado">NORMAL</p>
+        <span id="alerta">OK</span>
+    </div>
+
+    <div class="card verde">
+        <h3>⚙ BOMBA ESP3</h3>
+        <p class="valor bomba" id="motor">APAGADO</p>
+        <span>Control de riego</span>
+    </div>
+
+</div>
+
+<div class="grid-inferior">
+
+    <div class="panel">
+        <h2>NIVEL DEL ESTANQUE</h2>
+        <p>Lectura del potenciómetro - ESP2</p>
+
+        <div class="contenedor-agua">
+            <div class="agua" id="barraNivel"></div>
+        </div>
+
+        <p class="nivel-grande">
+            <span id="nivelGrande">0</span> %
+        </p>
+
+        <div class="badge">
+            Monitor de nivel
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>CONTROL DE BOMBA (ESP3)</h2>
+
+        <div class="icono-bomba">
+            ⚙
+        </div>
+
+        <h3>ESTADO ACTUAL</h3>
+
+        <p class="estado-motor" id="motor2">
+            APAGADO
+        </p>
+
+        <button class="btn encender" onclick="motorON()">
+            ▶ ENCENDER
+        </button>
+
+        <button class="btn apagar" onclick="motorOFF()">
+            ■ APAGAR
+        </button>
+    </div>
+
+</div>
+
+<hr>
+
+<center>
+    Sistema de Riego Inteligente IoT<br>
+    ESP1 • ESP2 • ESP3<br>
+    ESP-NOW | Flask | SQLite
+</center>
+
+</body>
+</html>

@@ -1,0 +1,352 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+
+    background:#0d1117;
+
+    color:white;
+
+    padding:20px;
+
+}
+
+h1{
+
+    font-size:38px;
+
+    margin-bottom:5px;
+
+}
+
+.subtitulo{
+
+    color:#9aa5b1;
+
+    margin-bottom:25px;
+
+}
+
+.grid-superior{
+
+    display:grid;
+
+    grid-template-columns:repeat(5,1fr);
+
+    gap:18px;
+
+    margin-bottom:25px;
+
+}
+
+.card{
+
+    border-radius:15px;
+
+    padding:20px;
+
+    background:#161b22;
+
+    border:2px solid #222;
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:scale(1.03);
+
+}
+
+.card h3{
+
+    font-size:16px;
+
+    margin-bottom:20px;
+
+}
+
+.valor{
+
+    font-size:42px;
+
+    font-weight:bold;
+
+    margin-bottom:15px;
+
+}
+
+.card span{
+
+    color:#8b949e;
+
+}
+
+.azul{
+
+    border-color:#0ea5ff;
+
+}
+
+.celeste{
+
+    border-color:#00d4ff;
+
+}
+
+.morado{
+
+    border-color:#ae67ff;
+
+}
+
+.amarillo{
+
+    border-color:#ffd400;
+
+}
+
+.verde{
+
+    border-color:#1cff73;
+
+}
+
+.alerta{
+
+    color:#ffd400;
+
+}
+
+.bomba{
+
+    color:#00ff66;
+
+}
+
+.grid-inferior{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:25px;
+
+}
+
+.panel{
+
+    background:#161b22;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    border:2px solid #252b36;
+
+}
+
+.panel h2{
+
+    margin-bottom:10px;
+
+}
+
+.panel p{
+
+    color:#9aa5b1;
+
+}
+
+.contenedor-agua{
+
+    width:130px;
+
+    height:280px;
+
+    border:3px solid #666;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    margin-top:30px;
+
+    margin-bottom:20px;
+
+    background:#111;
+
+}
+
+.agua{
+
+    width:100%;
+
+    height:0%;
+
+    background:linear-gradient(#33a8ff,#005eff);
+
+    transition:1s;
+
+}
+
+.nivel-grande{
+
+    font-size:58px;
+
+    font-weight:bold;
+
+    color:white;
+
+    margin-top:15px;
+
+}
+
+.badge{
+
+    margin-top:20px;
+
+    display:inline-block;
+
+    padding:10px 18px;
+
+    background:#caa000;
+
+    border-radius:10px;
+
+    font-weight:bold;
+
+    color:black;
+
+}
+
+.icono-bomba{
+
+    width:150px;
+
+    height:150px;
+
+    border-radius:50%;
+
+    border:3px solid #00ff73;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:70px;
+
+    color:#00ff73;
+
+    margin:25px auto;
+
+    box-shadow:0 0 30px #00ff73;
+
+}
+
+.estado-motor{
+
+    font-size:38px;
+
+    color:#00ff73;
+
+    margin-top:10px;
+
+    margin-bottom:30px;
+
+}
+
+.btn{
+
+    width:48%;
+
+    height:70px;
+
+    border:none;
+
+    border-radius:12px;
+
+    color:white;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.encender{
+
+    background:#16a34a;
+
+}
+
+.encender:hover{
+
+    background:#22c55e;
+
+}
+
+.apagar{
+
+    background:#dc2626;
+
+    float:right;
+
+}
+
+.apagar:hover{
+
+    background:#ef4444;
+
+}
+
+@media(max-width:1200px){
+
+.grid-superior{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+.grid-inferior{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:700px){
+
+.grid-superior{
+
+grid-template-columns:1fr;
+
+}
+
+.btn{
+
+width:100%;
+
+margin-top:15px;
+
+}
+
+.apagar{
+
+float:none;
+
+}
+
+}
